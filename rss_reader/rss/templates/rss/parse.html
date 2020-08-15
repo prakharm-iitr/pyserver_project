@@ -1,0 +1,44 @@
+<!-- Static template for reading and parsing the output of feedparser to webpage -->
+
+
+{% extends 'rss/base.html' %}
+
+
+{% block body %}
+
+<br />
+
+<form class="form-inline">
+	<div class="form-group mx-sm-3 mb-2">
+		<!-- <label for="inputPassword2" class="sr-only">Password</label> -->
+		<input type="text" class="form-control" placeholder="Paste RSS URL here" name="url">
+	</div>
+	<button type="submit" class="btn btn-primary mb-2">Submit</button>
+</form>
+
+{% if feed %}
+<div>
+	<h2>
+	<img style="vertical-align: middle" src="{{ feed.feed.image.href }}" width="128px" height="128px">
+	<span style="h2">{{ feed.feed.title }}</span>
+	</h2>
+</div>
+<!-- <h2>"{{ feed.feed.image.href }}"</h2> -->
+{% if feed.entries %}
+{% for article in feed.entries %}
+<div class="card">
+	<div class="card-header">Feed</div>
+	<div class="card-body">
+		<h4 class="card-title">Headline: {{ article.title }}</h4>
+		<p class="card-text">Description: {{ article.description }}</p>
+		<a href="{{ article.link }}" class="btn btn-primary">Link</a>
+		<p class="card-footer">{{ article.published }}</p>
+	</div>
+</div>
+
+
+{% endfor %}
+{% endif %}
+{% endif %}
+
+{% endblock %}
